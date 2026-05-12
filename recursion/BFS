@@ -1,0 +1,86 @@
+#include <iostream>
+#include <queue>
+#include <omp.h>
+
+using namespace std;
+
+class Node
+{
+public:
+
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int data)
+    {
+        this->data = data;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+void bfs(Node* root)
+{
+    queue<Node*> q;
+
+    q.push(root);
+
+    while(!q.empty())
+    {
+        Node* current = q.front();
+        q.pop();
+
+        // Critical Section for Printing
+        #pragma omp critical
+        {
+            cout << current->data << " ";
+        }
+
+        // Parallel Sections
+        #pragma omp parallel sections
+        {
+
+            // Left Child
+            #pragma omp section
+            {
+                if(current->left != NULL)
+                {
+                    #pragma omp critical
+                    {
+                        q.push(current->left);
+                    }
+                }
+            }
+
+            // Right Child
+            #pragma omp section
+            {
+                if(current->right != NULL)
+                {
+                    #pragma omp critical
+                    {
+                        q.push(current->right);
+                    }
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    Node* root = new Node(1);
+
+    root->left = new Node(3);
+    root->right = new Node(4);
+
+    root->left->left = new Node(9);
+    root->left->right = new Node(2);
+
+    cout << "Parallel BFS Traversal:\n";
+
+    bfs(root);
+
+    return 0;
+}
