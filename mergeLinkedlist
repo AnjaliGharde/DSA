@@ -1,0 +1,104 @@
+import java.util.Scanner;
+
+class Node {
+
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Main {
+
+    Node head;
+
+    // Insert at end
+    public void insert(int data) {
+
+        Node newnode = new Node(data);
+
+        if (head == null) {
+            head = newnode;
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newnode;
+    }
+    
+    // merge
+    public void merge(Main list2){
+        
+        Node temp = head;
+        while(temp.next != null){
+            temp = temp.next;
+        }
+        temp.next = list2.head;
+    }
+
+    // Display linked list
+    public void display() {
+
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+
+        System.out.println("null");
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        // First linked list
+        Main list1 = new Main();
+
+        int n1 = sc.nextInt();
+
+        for (int i = 0; i < n1; i++) {
+
+            int data = sc.nextInt();
+
+            list1.insert(data);
+        }
+
+        // Second linked list
+        Main list2 = new Main();
+
+        int n2 = sc.nextInt();
+
+        for (int i = 0; i < n2; i++) {
+
+            int data = sc.nextInt();
+
+            list2.insert(data);
+        }
+
+        // Display first list
+        System.out.println("First Linked List:");
+        list1.display();
+
+        // Display second list
+        System.out.println("Second Linked List:");
+        list2.display();
+        
+        System.out.println("merge list");
+         list1.merge(list2);
+         list1.display();
+    }
+}
+====================================================================
+
+output:
+10 -> 20 -> 30 -> 40 -> 50 -> 60 -> null
