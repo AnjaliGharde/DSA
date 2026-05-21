@@ -1,0 +1,86 @@
+ 
+
+ class Node{
+        int data;
+        Node next;
+        
+        
+        Node(int data){
+            this.data = data;
+            this.next = null;
+        }
+    }
+public class Main
+{
+    Node head;
+    // insert at the end
+   public void insert(int data){
+       Node newnode = new Node(data);
+       
+       if(head == null){
+           head = newnode;
+           return;
+       }
+       Node temp = head;
+       while(temp.next != null){
+           temp = temp.next;
+       }
+       
+       temp.next = newnode;
+   }
+   
+//   insert at Start
+
+    public void start(int data){
+        
+        Node newnode = new Node(data);
+        
+        if(head == null){
+            head = newnode;
+            return;
+        }
+        
+         newnode.next = head;
+         head = newnode;
+    }
+    
+    // at the middle
+    public void middle(int data , int position){
+        Node newnode = new Node(data);
+        
+        Node temp = head;
+        
+        for(int i =0; i<position-1; i++){
+             temp = temp.next;
+        }
+        
+        newnode.next = temp;
+        
+        
+    }
+   
+   public void display(){
+        Node temp = head;
+        
+        while(temp != null){
+            System.out.print(temp.data + "->");
+            temp = temp.next;
+        }
+        
+     System.out.print("null");
+   }
+   
+	public static void main(String[] args) {
+	    
+	    Main list = new Main();
+	    list.insert(10);
+	    list.insert(20);
+	    list.insert(30);
+	    list.display();
+	    System.out.println();
+	    list.start(80);
+	    list.display();
+	    
+	 
+	}
+}
