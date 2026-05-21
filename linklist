@@ -54,11 +54,44 @@ public class Main
              temp = temp.next;
         }
         
-        newnode.next = temp;
+        newnode.next = temp.next;
+        temp.next = newnode;
+    }
+    
+    // delete the end Node
+    public void deleteEnd(){
+        Node temp = head;
+        Node temp1 = temp.next;
+        while(temp1.next != null){
+            temp1 = temp1.next; 
+            temp = temp.next;
+        }
+        
+        temp.next = null;
+        
+    }
+    
+    // delete at the start
+    public void startDelete(){
+         head = head.next;
+    }
+   
+   //   delete at middle
+    public void deleteMiddle(int position){
+        Node temp = head;
+        Node temp1 = temp.next;
+        for(int i=0;i<position-1;i++){
+            temp = temp.next;
+            temp1 = temp1.next;
+        }
+        
+        temp.next = temp1.next;
+        temp1.next = temp1;
         
         
     }
-   
+    
+    
    public void display(){
         Node temp = head;
         
@@ -70,6 +103,8 @@ public class Main
      System.out.print("null");
    }
    
+   
+   
 	public static void main(String[] args) {
 	    
 	    Main list = new Main();
@@ -78,8 +113,34 @@ public class Main
 	    list.insert(30);
 	    list.display();
 	    System.out.println();
+	    
 	    list.start(80);
 	    list.display();
+	    System.out.println();
+	    
+	    list.middle(100,2);
+	    list.display();
+	    System.out.println();
+	    
+	    list.deleteEnd();
+	    list.display();
+	    System.out.println();
+	    
+	    list.startDelete();
+	    list.display();
+	    System.out.println();
+	    
+	    list.deleteMiddle(1);
+	    list.display();
+	    
+=======================================================================
+output:
+10->20->30->null
+80->10->20->30->null
+80->10->100->20->30->null
+80->10->100->20->null
+10->100->20->null
+10->20->null
 	    
 	 
 	}
