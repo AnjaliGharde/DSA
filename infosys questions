@@ -1,0 +1,61 @@
+Problem Statement: Minimum Cost to Reach Step N
+A staircase contains N steps numbered from 1 to N.
+You start from step 1 and want to reach step N.
+From any step, you may jump only to the next Fibonacci step ahead. That is, if you are currently on step i, you may move to:
+•	i + 1
+•	i + 2
+•	i + 3
+•	i + 5
+•	i + 8
+•	...
+where the jump length must be a Fibonacci number and the destination must not exceed N.
+The cost of making a jump of length k is:
+\[ \text{Cost} = A + B \times k \]
+where:
+•	A = fixed cost per jump
+•	B = cost per step jumped
+•	k = jump length (a Fibonacci number)
+Find the minimum total cost required to reach step N.
+Input Format
+N A B
+Output Format
+Print a single integer representing the minimum total cost.
+
+================================================================================
+
+ 
+import java.util.*;
+public class Main
+{
+	 public long minicost(int A, int B , int N){
+	     
+	     ArrayList<Integer> fib = new ArrayList<>();
+	     int first = 1;
+	     int second = 2;
+	     
+	     while(first < N){
+	          fib.add(first);
+	          
+	          int next = first + second;
+	          first = second;
+	          second = next;
+	     }
+	     
+	     long dp[] = new long[N+1];
+	     Ararys.fill(dp , Long.Max_Value);
+	     dp[1] = 0;
+	     
+	     for(int i=2; i<N; i++){
+	         for(int k:fib){
+	             if(k>=i){
+	                 break;
+	             }
+	             
+	             long cost = dp[i-k] + A+(long)B*k;
+	             
+	             dp[i] = Arrays.min(dp[i], cost);
+	         }
+	     }
+	     return dp[N];
+	 }
+}
