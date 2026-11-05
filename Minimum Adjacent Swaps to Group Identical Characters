@@ -1,0 +1,75 @@
+You are given a binary string S consisting only of '0' and '1'.
+Your task is to find the minimum number of adjacent swaps required to make all identical characters appear together in one contiguous block.
+You have two choices:
+1.	Group all '1' characters together.
+2.	Group all '0' characters together.
+Return the minimum swaps required among the two options.
+An adjacent swap means swapping two neighboring characters.
+Example 1
+Input
+S = "1001"
+Output
+0
+Explanation
+•	Grouping all 1s together: The two 1s are already at the beginning and end, so they are not together. (Correction: this requires swaps if using adjacent swaps.)
+•	Grouping all 0s together: The two 0s are already adjacent.
+Therefore, the minimum number of swaps is 0.
+
+===================================================================================================================================================
+
+public class Main {
+
+    public static int minSwaps(String s, char target) {
+
+        int n = s.length();
+
+        // Step 1: Store positions of target characters
+        int[] positions = new int[n];
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+
+            if (s.charAt(i) == target) {
+                positions[count++] = i;
+            }
+        }
+
+        // Step 2: If there is only one or zero target characters
+        if (count <= 1) {
+            return 0;
+        }
+
+        // Step 3: Find the middle character
+        int median = count / 2;
+
+        int swaps = 0;
+
+        // Step 4: Calculate the required adjacent swaps
+        for (int i = 0; i < count; i++) {
+
+            int targetPosition = positions[median] - median + i;
+
+            swaps += Math.abs(positions[i] - targetPosition);
+        }
+
+        return swaps;
+    }
+
+    public static void main(String[] args) {
+
+        String s = "10101";
+
+        // Calculate swaps for grouping 1s
+        int ones = minSwaps(s, '1');
+
+        // Calculate swaps for grouping 0s
+        int zeros = minSwaps(s, '0');
+
+        // Return minimum
+        int answer = Math.min(ones, zeros);
+
+        System.out.println("Swaps for 1s: " + ones);
+        System.out.println("Swaps for 0s: " + zeros);
+        System.out.println("Minimum swaps: " + answer);
+    }
+}
