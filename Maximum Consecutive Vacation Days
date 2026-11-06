@@ -1,0 +1,73 @@
+Problem Statement: Maximum Consecutive Vacation Days
+Andy wants to go on a vacation to de-stress himself. He can take only one continuous vacation during the next N days, where the days are numbered from 1 to N.
+Andy already has M obligations scheduled on specific days. The i-th obligation is on day D[i]. To extend his vacation, Andy is allowed to cancel at most K obligations.
+Your task is to determine the maximum number of consecutive vacation days Andy can take after canceling at most K obligations.
+Input Format
+- The first line contains three integers:
+•	N – Total number of days.
+•	M – Number of scheduled obligations.
+•	K – Maximum number of obligations that can be canceled.
+- The second line contains M space-separated integers representing the days on which the obligations are scheduled.
+=======================================================================================================================================
+
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt();
+        int M = sc.nextInt();
+        int K = sc.nextInt();
+
+        int D[] = new int[M];
+
+        for (int i = 0; i < M; i++) {
+            D[i] = sc.nextInt();
+        }
+
+        // Create Free and Busy array
+        char arr[] = new char[N];
+
+        Arrays.fill(arr, 'F');
+
+        // Mark busy days
+        for (int i = 0; i < M; i++) {
+            arr[D[i] - 1] = 'B';
+        }
+
+        int busycount = 0;
+        int max = 0;
+        int left = 0;
+
+        // Sliding Window
+        for (int right = 0; right < N; right++) {
+
+            if (arr[right] == 'B') {
+                busycount++;
+            }
+
+            // Shrink window if busy days exceed K
+            while (busycount > K) {
+
+                if (arr[left] == 'B') {
+                    busycount--;
+                }
+
+                left++;
+            }
+
+            // Calculate current window length
+            int length = right - left + 1;
+
+            max = Math.max(max, length);
+        }
+
+        System.out.println(max);
+
+        sc.close();
+    }
+}
