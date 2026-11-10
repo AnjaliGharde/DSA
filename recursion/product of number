@@ -1,0 +1,20 @@
+public class Main
+{
+    public static int product(int num, int prod){
+        
+        if(num==0){
+            return prod;
+        }
+        int digit = num%10;
+        prod = prod * digit;
+        
+        return product(num/10, prod);
+    }
+    
+	public static void main(String[] args) {
+	         int num = 123;
+	         
+	         System.out.println(product(num, 1));
+	         
+	}
+}
