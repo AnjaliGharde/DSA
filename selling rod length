@@ -1,0 +1,45 @@
+1. Problem Statement
+You are given a rod of length n inches and an integer array price[] of size n. The value price[i - 1] represents the selling price of a piece of length i.
+You may cut the rod into smaller pieces and sell those pieces. Determine the maximum total value that can be obtained by cutting and selling the entire rod.
+Note: The length of the rod is equal to the number of elements in price[]. Each piece length may be used any number of times.
+2. Input and Output
+Input: An integer array price[] of size n.
+Output: A single integer representing the maximum obtainable value.
+3. Sample Test Cases
+Sample 1
+Input:
+price[] = [1, 5, 8, 9, 10, 17, 17, 20]
+
+Output:
+22
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ 
+public class Main
+{
+    public static int value(int price[], int n){
+        
+        if(n == 0){
+            return 0;
+        }
+        
+        int maxval = 0;
+        
+        for(int i=1; i<n; i++){
+            
+            int profit = price[i-1] + value(price, n-1);
+            maxval = Math.max(maxval, profit);
+        }
+        
+        return maxval;
+    }
+    
+	public static void main(String[] args) {
+		 
+		 
+	 int price[] = {6,8,4,3};
+	 int n = price.length;
+	 
+		 
+	}
+}
