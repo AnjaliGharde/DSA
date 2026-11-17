@@ -1,0 +1,47 @@
+// 2. Parcel and Chute
+// Problem Statement:
+// A parcel-sorting machine processes N parcels sequentially.
+// Each parcel has a specific weight, given in an integer array weight[].
+// The machine has two chutes: a Left Chute and a Right Chute. 
+// Parcels are directed into these chutes while being processed.
+// A maximum allowed weight difference K is also provided.
+// The machine compares the weight of the current parcel with the weight of the 
+// immediately previous parcel.
+// If the absolute difference between their weights is greater than K,
+// the machine gets jammed and stops processing further parcels.
+// Your task is to determine the total number of parcels accepted 
+// by the machine before it gets jammed.
+
+===========================================================================================================================================
+
+
+public class Main
+{
+    public static int parcel(int weight[] , int n, int k){
+        int count =1;
+        int j=0;
+        int diff = 0;
+        for(int i=1; i<n; i++){
+          diff = Math.abs(weight[i] - weight[j]);  
+          
+          
+           if(diff > k){
+            
+             break;
+        }
+          count++;
+          j++;
+        }
+        
+        
+        return count;
+    }
+	public static void main(String[] args) {
+	 
+	 int weight[] = {10, 12, 15, 18, 25, 27, 30};
+	 int n = weight.length;
+	 int k = 5;
+	 
+	 System.out.println(parcel(weight, n , k));
+	}
+}
