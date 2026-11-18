@@ -1,0 +1,45 @@
+ 
+// Problem: Minimum Cost to Reach the Last Stone
+// You are given an integer array cost[] of size N.
+
+// Each element represents the cost of stepping on that stone.
+
+// You start before the first stone (position 0) and want to reach the last stone (position N-1).
+
+// You can jump either:
+// - 1 step forward.
+// - 2 steps forward.
+// Your task is to find the minimum total cost required to reach the last stone.
+===================================================================================================================
+
+public class Main
+{
+    public static int miniCost(int cost[]){
+        
+        int N = cost.length;
+        int dp[] = new int[N];
+        
+        dp[0] = cost[0];
+        dp[1] = cost[0] + cost[1];
+        
+        for(int i=2; i<N; i++){
+            
+            int one = dp[i-1];
+            int two = dp[i-2];
+            
+            dp[i] = cost[i] + Math.min(one,two);
+            
+            
+        }
+        
+        return dp[N-1];
+    }
+	public static void main(String[] args) {
+
+    int cost[] = {10,20,30,50};
+    
+    System.out.println(miniCost(cost));
+		 
+		 
+	}
+}
