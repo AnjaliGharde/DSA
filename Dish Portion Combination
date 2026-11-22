@@ -1,0 +1,70 @@
+//   Dish Portion Combination
+// Problem Statement:
+// A restaurant has N different dishes.
+// Each dish contains two portion options:
+// •	Small Portion
+// •	Large Portion
+// For every dish, four integer values are provided in an array:
+// dish[i] = {smallPortion, smallSatisfiedPeople, largePortion, largeSatisfiedPeople}
+// Where:
+// •	dish[i][0] represents the size of the small portion.
+// •	dish[i][1] represents the number of people satisfied by the small portion.
+// •	dish[i][2] represents the size of the large portion.
+// •	dish[i][3] represents the number of people satisfied by the large portion.
+// A target portion size K is also provided.
+// You must select:
+// •	The small portion from one dish.
+// •	The large portion from another dish.
+// Important: Both portions must belong to two different dishes.
+// Calculate the sum of the two selected portion sizes.
+// If their sum is exactly equal to K, calculate and print the total number of people satisfied by both portions.
+// If no valid combination exists, return -1.
+
+
+public class Main
+{
+    public static int Tnum(int dish[][], int K){
+        
+        int n = dish.length;
+        
+        int maxPortion = -1;
+        
+        for(int i=0; i<n; i++){
+            
+            int small = dish[i][0];
+            int samllSatis = dish[i][1];
+            
+            for(int j=0; j<n; j++){
+                int large = dish[j][2];
+                int largesatis = dish[j][3];
+                
+                
+                if(i==j){
+                    continue;
+                }
+                
+                if(small + large == K){
+                    int total = samllSatis + largesatis;
+                    
+                    maxPortion = Math.max(maxPortion, total);
+                }
+            }
+        }
+        
+        return maxPortion;
+        
+        
+    }
+	public static void main(String[] args) {
+ 
+            int[][] dish = {
+                {2, 3, 5, 8},
+                {4, 6, 3, 7},
+                {1, 2, 6, 9}
+            };
+            
+            int K = 5;
+            System.out.println(Tnum(dish, K));
+ 
+ 	}
+}
