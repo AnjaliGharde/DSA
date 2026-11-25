@@ -1,0 +1,40 @@
+PROBLEM DESCRIPTION You are given N rooms (1 <= N <= 10^5) and an array litres of length N, where litres[i] is the number of litres of paint required to paint the i-th room. All required paint is pooled together, so you need at least T = sum(litres[i]) litres in total. 
+You can buy paint any number of times from two pack options: 
+•	Single pack: costs a and provides 1 litre of paint.
+•	Bulk pack: costs b and provides S litres of paint.
+You may buy more litres than strictly needed if a bulk pack is cheaper overall. Find the minimum total cost required to obtain at least T litres of paint. 
+INPUT FORMAT First line contains four integers N, a, b, and S. Second line contains N space-separated integers representing the array litres. 
+OUTPUT FORMAT Print a single integer representing the minimum total cost. 
+
+
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int N = 3;
+        int a = 5;
+        int b = 8;
+        int S = 5;
+
+        int[] litres = {2, 3, 2};
+
+        long T = 0;
+
+        for (int i = 0; i < N; i++) {
+            T += litres[i];
+        }
+
+        long cost1 = T * a;
+
+        long cost2 = (T / S) * b + (T % S) * a;
+
+        long bulkPacks = (T + S - 1) / S;
+
+        long cost3 = bulkPacks * b;
+
+        long answer = Math.min(cost1, Math.min(cost2, cost3));
+
+        System.out.println(answer);
+    }
+}
